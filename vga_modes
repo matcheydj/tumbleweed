@@ -1,0 +1,17 @@
+1920 x 1080 x  8bits vga=843
+1920 x 1080 x 16bits vga=844
+1920 x 1080 x 32bits vga=845
+1280 x  800 x  8bits vga=864
+1280 x  800 x 32bits vga=865
+
+Arch Linux with Syslinux bootloader, /boot/syslinux/syslinux.cfg
+can be edited if switching to nVidia drivers from open source
+(nouveau) drivers after install alters shell resolution. Ex:
+
+LABEL arch
+  MENU LABEL ArchLinux
+  LINUX ../vmlinuz-linux
+  APPEND root=/dev/sdaX rw vga=844
+  INITRD ../initramfs-linux.img
+  
+The full list of (your) supported modes is shown by (your) HDT (Hardware Detection Tool). This file is for reference only.
