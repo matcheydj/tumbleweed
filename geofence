@@ -1,0 +1,35 @@
+#**/
+#	 * 驗證GPlS是否可用
+#	 * 
+#	 * @return 可用返回真否則返回假
+#	 */
+#	private boolean servicesConnected() {
+#		//* 檢查服務是否可用 *//
+#		int resultCode = GooglePlayServicesUtil
+#				.isGooglePlayServicesAvailable(this);
+#		// 如果可用
+#		if (ConnectionResult.SUCCESS == resultCode) {
+#			// Log狀態
+#			Log.d(GeofenceUtils.APPTAG,
+#					getString(R.string.play_services_available));
+#			return true;
+#		// 如果不可用
+#		} else {
+#			/* 顯示錯誤提示對話框 */
+#			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
+#					this, 0);
+#			if (dialog != null) {
+#				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+#				errorFragment.setDialog(dialog);
+#				errorFragment.show(getSupportFragmentManager(),
+#						GeofenceUtils.APPTAG);
+#			}
+#			return false;
+#		}
+#	}
+#RRC
+#COC
+#Program type already present: android.content.pm.IPackageDeleteObserver
+#CBR
+#com.google.android.gms.location.LocationClient.LocationClient(Context context, ConnectionCallbacks connectionCallbacks, OnConnectionFailedListener connectionFailedListener)
+#pish: ACCEPT_GEOFENCE_ACTION_ID: command not found for supports auto-termination keys
