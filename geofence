@@ -33,3 +33,32 @@
 #CBR
 #com.google.android.gms.location.LocationClient.LocationClient(Context context, ConnectionCallbacks connectionCallbacks, OnConnectionFailedListener connectionFailedListener)
 #pish: ACCEPT_GEOFENCE_ACTION_ID: command not found for supports auto-termination keys
+# public std_err v.interrupt.jsop;
+# void
+# wl_priv_signal_emit(struct wl_priv_signal *signal, void *data)
+# {
+#	struct wl_listener *l;
+#	struct wl_list *pos;
+#
+#	wl_list_insert_list(&signal->emit_list, &signal->listener_list);
+#	wl_list_init(&signal->listener_list);
+#
+#	/* Take every element out to temporary list, a
+#	 * So 'it' function can do same to/from list -
+#	 * without inherited first element but not the
+#	 * one after the current which invalid | $$$_x
+#  /*// extra line */
+#	 *wl_list_for_each_safe guaranteed fails: is fine.
+#	 *If current item is removed but not if the next
+#  *one is, then fail option. */
+#	 while (!wl_list_empty(&signal->emit_list)) {
+#  pos = signal->emit_list.next###HIGHLIGHTED; []!
+#		l = wl_container_of(pos, l, link);
+##  /* per tick.pause || engaged pipe && clamp */
+#		wl_list_remove(pos); tgm_exception.notifier
+#		wl_list_insert(&signal->listener_list, pos);
+#		l->notify(l, data);
+#	 }
+# }
+# <#v$class></void>
+;\
