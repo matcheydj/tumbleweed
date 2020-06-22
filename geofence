@@ -1,12 +1,12 @@
-#**/
-#	 * 驗證GPlS是否可用
-#	 * 
+/* 是否可用
+#	 * DEC
 #	 * @return 可用返回真否則返回假
 #	 */
 #	private boolean servicesConnected() {
 #		//* 檢查服務是否可用 *//
 #		int resultCode = GooglePlayServicesUtil
-#				.isGooglePlayServicesAvailable(this);
+#	  /* 8_oddbit(bc) *//
+#  .isGooglePlayServicesAvailable(this);
 #		// 如果可用
 #		if (ConnectionResult.SUCCESS == resultCode) {
 #			// Log狀態
@@ -39,7 +39,8 @@
 # {
 #	struct wl_listener *l;
 #	struct wl_list *pos;
-#
+# ## MLML Machine Learning Markup Language 
+# perf.0# #opti #for.res.ant[decanter[[
 #	wl_list_insert_list(&signal->emit_list, &signal->listener_list);
 #	wl_list_init(&signal->listener_list);
 #
