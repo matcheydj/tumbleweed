@@ -61,5 +61,16 @@
 #		l->notify(l, data);
 #	 }
 # }
+# params
+# 0=default
+# 1=invisible
+# 2=underline,
+# ...
+# 8=full block
+# + 16 if you want the software cursor to be applied
+# + 32 if you want to always change the background color
+# + 64 if you dislike having the background the same as the
+#     foreground.
+# C Tooltip layer dim kern ##
 # <#v$class></void>
-;\
+# ;\
