@@ -65,6 +65,23 @@
 #		#vga l->notify(l, data);
 #	# }
 # #}
+/* stolen code */
+F
+F static const amd64_umask_t amd64_fam15h_data_cache_misses[]={
+F   { .uname  = "DC_MISS_STREAMING_STORE",
+F     .udesc  = "First data cache miss or streaming store to a 64B cache line",
+F     .ucode = 0x1,
+F   },
+F   { .uname  = "STREAMING_STORE",
+F     .udesc  = "First streaming store to a 64B cache line",
+F     .ucode = 0x2,
+F   },
+F   { .uname  = "ALL",
+F     .udesc  = "All sub-events selected",
+F     .ucode = 0x3,
+F     .uflags= AMD64_FL_NCOMBO | AMD64_FL_DFL,
+F   },
+F ci
 # params
 # 0=default
 # 1=invisible
