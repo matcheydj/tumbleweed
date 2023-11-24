@@ -1,0 +1,102 @@
+<%# A program written in embedded Ruby that creates a web page that has a background scripted element that generates and stores as a vector a random list of words, store the words in an array, and output the selections as 16 separate buttons on the webpage, each button containing at least 3 of those many words to the user. The program will make the users choose up to 5 of a total of 16 (up to 5 out of 16 choices) and put their choices in a second table array, and using vectors display them as text, generated as svg drawn as close to how the letters appear on an interactive web page. Here is the code: %>
+<% require 'securerandom' %>
+
+<%# A function to generate a random word of length n %>
+<% def random_word(n) %>
+  <% word = "" # Initialize the word %>
+  <% alphabet = "abcdefghijklmnopqrstuvwxyz" # Define the alphabet %>
+  <% n.times do %>
+    <% r = SecureRandom.random_number(26) # Generate a random index %>
+    <% word += alphabet[r] # Append a random letter %>
+  <% end %>
+  <% return word # Return the word %>
+<% end %>
+
+<%# A function to generate a random list of words of size m %>
+<% def random_list(m) %>
+  <% list = [] # Initialize the list %>
+  <% m.times do %>
+    <% n = SecureRandom.random_number(10) + 1 # Generate a random word length between 1 and 10 %>
+    <% list << random_word(n) # Generate a random word and add it to the list %>
+  <% end %>
+  <% return list # Return the list %>
+<% end %>
+
+<%# A function to create a button with a label %>
+<% def create_button(label) %>
+  <%= "<button onclick=\"select(this)\">#{label}</button>" %> <%# Print the HTML code for the button %>
+<% end %>
+
+<%# A function to create a text element with a content %>
+<% def create_text(content) %>
+  <%= "<text x=\"50%\" y=\"50%\" text-anchor=\"middle\" alignment-baseline=\"middle\" font-size=\"32\">#{content}</text>" %> <%# Print the SVG code for the text %>
+<% end %>
+
+<%# A function to join three words with spaces %>
+<% def join_words(word1, word2, word3) %>
+  <% return word1 + " " + word2 + " " + word3 # Return the joined words %>
+<% end %>
+
+<%# A global variable to store the user's choices %>
+<% $choices = [] %>
+<% $choice_count = 0 %>
+
+<%# A global variable to store the timer value %>
+<% $timer = 5 %>
+
+<%# A function to handle the user's selection of a button %>
+<% def select(button) %>
+  <% if $choice_count < 5 # If the user has not selected 5 buttons yet %>
+    <% $choices << button # Add the button's label to the choices list %>
+    <% $choice_count += 1 # Increment the choice count %>
+    <% button.disabled = true # Disable the button %>
+    <% if $choice_count == 5 # If the user has selected 5 buttons %>
+      <% start_timer() # Start the timer and display it %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%# A function to start the timer and display it %>
+<% def start_timer() %>
+  <%= "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">" %> <%# Print the SVG tag %>
+  <% create_text($timer.to_s) # Create a text element with the timer value %>
+  <%= "<animate id=\"timer\" attributeName=\"content\" values=\"5;4;3;2;1\" keyTimes=\"0;0.2;0.4;0.6;0.8;1\" dur=\"5s\" fill=\"freeze\"/>" %> <%# Animate the text to change the timer value %>
+  <%= "<set attributeName=\"display\" to=\"none\" begin=\"timer.end+1s\"/>" %> <%# Hide the text after the timer ends and waits for 1 second %>
+  <%= "</svg>" %> <%# Print the closing SVG tag %>
+  <%= "<script>" %> <%# Print the script tag %>
+  <%= "setTimeout(function() { display_choices(); }, 6000);" %> <%# Set a timeout to display the choices after 6 seconds %>
+  <%= "</script>" %> <%# Print the closing script tag %>
+<% end %>
+
+<%# A function to display the user's choices as text %>
+<% def display_choices() %>
+  <%= "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">" %> <%# Print the SVG tag %>
+  <% for i in 0...5 # For each choice %>
+    <% create_text($choices[i]) # Create a text element with the choice %>
+    <%= "<animateTransform attributeName=\"transform\" type=\"translate\" from=\"0 0\" to=\"0 #{(i - 2) * 20}\" dur=\"1s\" fill=\"freeze\"/>" %> <%# Animate the text to move vertically %>
+  <% end %>
+  <%= "</svg>" %> <%# Print the closing SVG tag %>
+<% end %>
+
+<%# The main code %>
+<% list = random_list(16) # Generate a random list of 16 words %>
+<%= "<!DOCTYPE html>" %> <%# Print the HTML declaration %>
+<%= "<html>" %> <%# Print the HTML tag %>
+<%= "<head>" %> <%# Print the head tag %>
+<%= "<script>" %> <%# Print the script tag %>
+<%= select %> <%# Print the Ruby code for the select function as JavaScript %>
+<%= display_choices %> <%# Print the Ruby code for the display_choices function as JavaScript %>
+<%= "</script>" %> <%# Print the closing script tag %>
+<%= "</head>" %> <%# Print the closing head tag %>
+<%= "<body>" %> <%# Print the body tag %>
+<% list.shuffle! # Shuffle the list of words %>
+<% for i in 0...4 # For each row of buttons %>
+  <% for j in 0...4 # For each column of buttons %>
+    <% k = i * 4 + j # Get the index of the word %>
+    <% label = join_words(list[k], list[(k+1)%16], list[(k+2)%16]) # Join three words as the label %>
+    <% create_button(label) # Create a button with the label %>
+  <% end %>
+  <%= "<br>" %> <%# Print a line break %>
+<% end %>
+<%= "</body>" %> <%# Print the closing body tag %>
+<%= "</html>" %> <%# Print the closing HTML tag %>
