@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .tumbleweed {
+            fill: none;
+            stroke-width: 3;
+        }
+    </style>
+</head>
+<body>
+    <svg id="mySVG" width="1600" height="1600">
+        <!-- Tumbleweed will be drawn here -->
+    </svg>
+
+    <script>
+        var svgNS = "http://www.w3.org/2000/svg";
+        var mySVG = document.getElementById('mySVG');
+
+        // Generate a random number of lines between 8 and 360
+        // Remember, SVG is a powerful but complex tool, and creating detailed or realistic images with it often requires a good understanding of both SVG itself and graphic design principles.
+        var numLines = Math.floor(Math.random() * 352) + 8;
+
+        for(var i=0; i<numLines; i+=45) {
+            var tumbleweed = document.createElementNS(svgNS,'ellipse');
+            tumbleweed.setAttributeNS(null,'cx',800);
+            tumbleweed.setAttributeNS(null,'cy',800);
+            tumbleweed.setAttributeNS(null,'rx',400);
+            tumbleweed.setAttributeNS(null,'ry',160);
+            tumbleweed.setAttributeNS(null,'transform','rotate('+i+',800,800)');
+            tumbleweed.setAttributeNS(null,'class','tumbleweed');
+
+            // Generate a random color
+            var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+            tumbleweed.style.stroke = color;
+
+            mySVG.appendChild(tumbleweed);
+        }
+    </script>
+</body>
+</html>
