@@ -1,5 +1,5 @@
 ; With public participation in multiple arenas of AI capabilities listed as of date
-; A program in 64 bit assembly language to list properties capabilities of the assembly language itself
+; A program in 64 bit assembly language to list properties, capabilities of the assembly language itself
 ; Disclaimer: This program might not work on every system as this is
 ; not a trivial task, and the program may not be very efficient or elegant
 
