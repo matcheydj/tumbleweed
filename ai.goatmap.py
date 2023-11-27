@@ -135,8 +135,7 @@ facts = [
     “Mountain goats have a specialized digestive system that allows them to digest toxic plants that other animals cannot.”,
     “Bighorn sheep are named after their large, curved horns that can weigh up to 30 pounds.”,
     “Mountain goats are named after their mountainous habitat and their goat-like appearance.”
-    
-    ]
+]
 
 # Function to fetch data from OpenStreetMap using Overpass API
 def fetch_data(query):
@@ -182,7 +181,7 @@ def get_map_data(lat, lon, zoom):
     data = response.json()
     return data
 
-def main():
+def goat():
     # Coordinates for Glasgow, Scotland
     lat = 55.8642
     lon = -4.2518
@@ -223,7 +222,7 @@ def main(stdscr):
         elif key == ord('q'):
             break
 
-if __name__ == "__main__":
+if __name__ == "__main__": goat()
     curses.wrapper(main)
 
 # This script creates a new window that fills the entire terminal, hides the cursor, and sets the window to non-blocking mode so that it doesn’t pause the program while waiting for user input. It then enters a loop where it clears the window, draws the cursor at its current position, and refreshes the window to show the updated content. It then checks for user input and moves the cursor accordingly.
