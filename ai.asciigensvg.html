@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+  <title>AI ASCII Generator SVG</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="ai.svgupgenasciiuh.js"></script>
+</head>
+<body>
+  <div id="container" style="display: flex; justify-content: center; align-items: center;">
+    <div id="image" style="width: 50%; height: 50%;"></div>
+    <div id="ascii" style="width: 50%; height: 50%;"></div>
+  </div>
+  <script>
+    // Load the image file
+    var imageFile = "image.jpg";
+    // Create an instance of the ImageUploadController class
+    var controller = new ImageUploadController();
+    // Handle the file upload and convert the image to ASCII art
+    controller.handleFileUpload(imageFile, function(asciiArt) {
+      // Append the image to the image div
+      d3.select("#image").append("img")
+        .attr("src", imageFile)
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // Generate the SVG from the ASCII art
+      var svg = controller.convertImageToAsciiArt(asciiArt);
+      // Append the SVG to the ascii div
+      d3.select("#ascii").append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .html(svg);
+    });
+  </script>
+</body>
+</html>
+<!-- possible code that you can use to modify the HTML to generate the ASCII art as SVG and draw it in a different <div> -->
