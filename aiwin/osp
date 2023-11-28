@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# Query system information
+echo "System: $(uname)"
+echo "Architecture: $(uname -m)"
+echo "User: $USER"
+
+# Allow the user to select a folder for access
+echo -e "\nPlease select an option:"
+echo "1. Lix"
+echo "2. Mac"
+echo "3. Win"
+echo "4. May"
+echo "5. Hem"
+
+choices=()
+while [ ${#choices[@]} -lt 5 ]; do
+    read -p "Enter your choice (1-5): " choice
+
+    if [[ " ${choices[@]} " =~ " ${choice} " ]]; then
+        echo "You have already made this choice. Please choose a different option."
+        continue
+    fi
+
+    if [ "$choice" == '1' ]; then
+        folder='/path/to/lix/folder'
+    elif [ "$choice" == '2' ]; then
+        folder='/path/to/mac/folder'
+    elif [ "$choice" == '3' ]; then
+        folder='/path/to/win/folder'
+    elif [ "$choice" == '4' ]; then
+        echo "Where is Utility Environment?"
+        read -p "Answer with Y/n/N: " answer
+        if [[ "$answer" == 'Y' ]]; then
+            echo "Searching for virtual and fake strings or pointers in the environment..."
+            # Add your code here to search for virtual and fake strings or pointers in the environment
+            read -p "Do you want to download official GNU utilities, including make? Answer with Y/n/N: " download
+            if [[ "$download" == 'Y' ]]; then
+                echo "Downloading official GNU utilities, including make..."
+                # Add your code here to download official GNU utilities, including make
+                # Check if wget is installed
+
+if ! command -v wget &> /dev/null
+then
+    echo "wget could not be found. Please install wget and try again."
+    exit
+fi
+
+# Check if tar is installed
+if ! command -v tar &> /dev/null
+then
+    echo "tar could not be found. Please install tar and try again."
+    exit
+fi
+
+# Download the GNU make source code
+wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz
+
+# Extract the tarball
+tar -xzf make-4.3.tar.gz
+
+# Change to the source directory
+cd make-4.3
+
+# Configure, build, and install
+./configure
+make
+sudo make install
+            fi
+        fi
+        continue
+    elif [ "$choice" == '5' ]; then
+        echo "You seem to make this option now."
+        # Add your code here for the "Hem" option
+        continue
+    else:
+        echo "Invalid choice."
+        continue
+    fi
+
+    choices+=("$choice")
+
+    # Display the contents of the selected folder
+    echo -e "\nContents of $folder:"
+    if [ -d "$folder" ]; then
+        ls "$folder"
+    else
+        echo "No such file or directory: $folder"
+    fi
+done
