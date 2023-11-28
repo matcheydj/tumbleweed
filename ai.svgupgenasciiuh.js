@@ -7,6 +7,12 @@ public class ImageUploadController {
 
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+
+        // Check if the file is coming from the correct page
+    if (!"ASCII Generator SVG".equals(title)) {
+        throw new IllegalArgumentException("File must be uploaded from the 'ASCII Generator SVG' page.");
+    }
+
         // Save the file somewhere
         Path path = Paths.get("uploads/" + file.getOriginalFilename());
         try {
