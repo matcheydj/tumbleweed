@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Upload Image</h2>
+
+<p>Click on the "Choose File" button to upload a file:</p>
+
+<input type="file" id="myFile" name="filename" accept="image/*">
+
+<button type="button" onclick="uploadFile()">Upload</button>
+
+<div id="asciiArt"></div>
+
+<script>
+function uploadFile() {
+    var file = document.getElementById('myFile').files[0];
+
+    // Check file size (must be less than 10MB)
+    if (file.size > 10485760) {
+        alert('File size must be less than 10MB.');
+        return;
+    }
+
+    // Check image dimensions (must be less than 24000px square)
+    var img = new Image();
+    img.onload = function() {
+        if (this.width > 24000 || this.height > 24000) {
+            alert('Image dimensions must be less than 24000px square.');
+            return;
+        }
+
+        // If all checks pass, upload the file
+        var formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        }).then(data => {
+            // Display the ASCII art
+            document.getElementById('asciiArt').innerText = data;
+        }).catch(error => {
+            console.error('There was a problem with the file upload:', error);
+        });
+    };
+    img.src = URL.createObjectURL(file);
+}
+</script>
+
+</body>
+</html>
+<!-- Test page modified to include a refresh and wait for the path to the uploaded and converted image -->
+<!-- Modify checks here as in this code, after the file is uploaded to the server, the server returns the ASCII art as a string. The client then displays this ASCII art in a <div> element on the page. -->
