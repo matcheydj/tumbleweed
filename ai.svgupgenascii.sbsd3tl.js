@@ -5,22 +5,6 @@ import java.nio.file.*;
 @RestController
 public class ImageUploadController {
 
-    // @PostMapping("/upload")
-    // public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-        // Save the file somewhere
-    //    Path path = Paths.get("uploads/" + file.getOriginalFilename());
-    //    try {
-    //        Files.write(path, file.getBytes());
-    //    } catch (IOException e) {
-    //        e.printStackTrace();
-    //    }
-
-        // Convert the image to ASCII art
-     //   String asciiArt = convertImageToAsciiArt(path);
-
-        // Return the ASCII art
-     //  return asciiArt;
-    // }
     @PostMapping("/upload")
 public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("title") String title) {
     // Check if the file is coming from the correct page
