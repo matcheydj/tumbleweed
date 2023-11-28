@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><!--//title -->
-        <title>ASCII Generator SVG</title>
-    </head>
+<head>
+    <title>ASCII Generator SVG</title>
+</head>
 <body>
 
 <h2>Upload Image</h2>
@@ -42,7 +42,7 @@ function uploadFile() {
             body: formData
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Response was not ok');
             }
             return response.text();
         }).then(data => {
@@ -58,5 +58,6 @@ function uploadFile() {
 
 </body>
 </html>
+
 <!-- Test page modified to include a refresh and wait for the path to the uploaded and converted image -->
 <!-- Modify checks here as in this code, after the file is uploaded to the server, the server returns the ASCII art as a string. The client then displays this ASCII art in a <div> element on the page. -->
