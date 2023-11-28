@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Upload Image</h2>
+
+<p>Click on the "Choose File" button to upload a file:</p>
+
+<input type="file" id="myFile" name="filename" accept="image/*">
+
+<button type="button" onclick="uploadFile()">Upload</button>
+
+<script>
+function uploadFile() {
+    var file = document.getElementById('myFile').files[0];
+
+    // Check file size (must be less than 10MB)
+    if (file.size > 10485760) {
+        alert('File size must be less than 10MB.');
+        return;
+    }
+
+    // Check image dimensions (must be less than 24000px square)
+    var img = new Image();
+    img.onload = function() {
+        if (this.width > 24000 || this.height > 24000) {
+            alert('Image dimensions must be less than 24000px square.');
+            return;
+        }
+
+        // If all checks pass, upload the file
+        // This is where you would add your file upload code
+    };
+    img.src = URL.createObjectURL(file);
+}
+</script>
+
+</body>
+</html>
+<!-- This code will display an alert and stop the file upload if the file size is more than 10MB or if either dimension of the image is more than 24000px. If all checks pass, the file is ready to be uploaded. You would need to add your own file upload code where indicated. -->
