@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+# Install necessary packages
+if ! command -v sudo >/dev/null 2>&1; then
+    pkg_add sudo
+fi
+
+if ! command -v sha1sum >/dev/null 2>&1; then
+    pkg_add coreutils
+fi
+
+# Check if the root account is active
+if sudo -n true 2>/dev/null; then
+    echo "The root account is active."
+    # Generate a SHA-1 hash of the message
+    hash1=$(echo -n "The root account is active." | sha1sum)
+else
+    echo "The root account is not active. Please run this script with sudo or as root."
+    exit 1
+fi
+
+# Check for network connectivity
+ip="8.8.8.8"
+if ping -c 1 $ip >/dev/null 2>&1; then
+    echo "Network connectivity is available."
+    # Convert the IP address to hexadecimal
+    hex_ip=$(printf '%02X' ${ip//./ })
+    echo "The hexadecimal representation of the IP address is: $hex_ip"
+    # Generate a SHA-1 hash of the message
+    hash2=$(echo -n "Network connectivity is available." | sha1sum)
+else
+    echo "Network connectivity is not available."
+fi
+
+# Factor the two hashes
+factor1=$(factor $hash1)
+factor2=$(factor $hash2)
+
+# Generate a third hash from the output message and random letters from the IP address
+output_message="The root account is active. Network connectivity is available."
+random_letters=$(echo $ip | grep -o . | sort -R | head -n 10 | tr -d '\n')
+hash3=$(echo -n "$output_message$random_letters" | sha1sum)
+
+# Compare the factored hashes to the third hash
+if [ "$factor1$factor2" == "$hash3" ]; then
+    echo "The factored hashes match the third hash."
+else
+    echo "The factored hashes do not match the third hash."
+fi
