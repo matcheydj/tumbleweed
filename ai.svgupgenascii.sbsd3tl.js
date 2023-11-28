@@ -5,22 +5,43 @@ import java.nio.file.*;
 @RestController
 public class ImageUploadController {
 
-    @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+    // @PostMapping("/upload")
+    // public String handleFileUpload(@RequestParam("file") MultipartFile file) {
         // Save the file somewhere
-        Path path = Paths.get("uploads/" + file.getOriginalFilename());
-        try {
-            Files.write(path, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //    Path path = Paths.get("uploads/" + file.getOriginalFilename());
+    //    try {
+    //        Files.write(path, file.getBytes());
+    //    } catch (IOException e) {
+    //        e.printStackTrace();
+    //    }
 
         // Convert the image to ASCII art
-        String asciiArt = convertImageToAsciiArt(path);
+     //   String asciiArt = convertImageToAsciiArt(path);
 
         // Return the ASCII art
-        return asciiArt;
+     //  return asciiArt;
+    // }
+    @PostMapping("/upload")
+public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("title") String title) {
+    // Check if the file is coming from the correct page
+    if (!"ASCII Generator SVG".equals(title)) {
+        throw new IllegalArgumentException("File must be uploaded from the 'ASCII Generator SVG' page.");
     }
+
+    // Save the file somewhere
+    Path path = Paths.get("uploads/" + file.getOriginalFilename());
+    try {
+        Files.write(path, file.getBytes());
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Convert the image to ASCII art
+    String asciiArt = convertImageToAsciiArt(path);
+
+    // Return the ASCII art
+    return asciiArt;
+}
 
     private String convertImageToAsciiArt(Path imagePath) {
         // This is where you would add your ASCII art generation code.
